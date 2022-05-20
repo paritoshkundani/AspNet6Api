@@ -26,3 +26,8 @@ C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\obj\Debug\net6.0\CityInfo.A
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\obj\Debug\net6.0\CityInfo.API.genruntimeconfig.cache
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\obj\Debug\net6.0\ref\CityInfo.API.dll
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Postman\ASP.NET Core 6 Web API Fundamentals.postman_collection.json
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Slide3.pdf
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

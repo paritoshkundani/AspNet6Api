@@ -7,10 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // here if we used builder.Services.AddMvc() instead it would work, but we would get
 // extra features which we don't need, API will just return JSON, no need for other types
 // or views so sticking with AddControllers()
+// AddNewtonsoftJson is for jsonpatch support along with 2 nuget packages (jsonpatch and newtonsoftjson)
+// other by default we use the Microsoft Json library, which is lighter but does not support json patch
 builder.Services.AddControllers(options =>
 {
     options.ReturnHttpNotAcceptable = true; // if user requests anything but json or xml return not acceptable (406), we default to json
-}).AddXmlDataContractSerializerFormatters(); // add support for xml in accept header
+}).AddNewtonsoftJson()
+.AddXmlDataContractSerializerFormatters(); // add support for xml in accept header
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

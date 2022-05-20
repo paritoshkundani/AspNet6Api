@@ -6,8 +6,11 @@ namespace CityInfo.API.Controllers
     /*
      -- ControllerBase give us basic API functionality, like accessing user information and common methods for returning responses
      -- Controller could also be used, but that gives adding functionality for returning views, we are not returning views in API
-     -- ApiController isn't neccessary, it provides imporved development experience when building APIs, like automatically
-        returning a 400 error on bad input and returning problem details on errors
+     
+    -- ApiController isn't neccessary but good to use, it provides improved development experience when building APIs, like automatically
+       returning a 400 error on bad input and returning problem details on errors so try to use it.  It will also automatically
+       check for DataAnnotation (ex. Required) on models being passed it, so no need to check ModelState.IsValid all the 
+       time with this in place.
 
      -- Route could have also been [Route("api/[controller]") but he preferred writing it out as if you change the controller name
         that would break existing calls as they will also need changing, here if we rename the controller our route is still /api/cities
