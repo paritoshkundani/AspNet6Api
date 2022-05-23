@@ -20,10 +20,17 @@ namespace CityInfo.API.Controllers
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
+        private readonly CitiesDataStore _citiesDataStore;
+
+        public CitiesController(CitiesDataStore citiesDataStore)
+        {
+            _citiesDataStore = citiesDataStore ?? throw new ArgumentNullException(nameof(citiesDataStore));
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<CityDto>> GetCities()
         {
-            return Ok(CitiesDataStore.Current.Cities);
+            return Ok(_citiesDataStore.Cities);
         }
 
         //[HttpGet("{id}")]
@@ -40,7 +47,7 @@ namespace CityInfo.API.Controllers
             // will allow JSON/XML/etc.. whatever the API is built to support to be returned if requested (accept header)
 
             // city to find
-            var cityToReturn = CitiesDataStore.Current.Cities
+            var cityToReturn = _citiesDataStore.Cities
                 .FirstOrDefault(c => c.Id == id);
             
             if (cityToReturn == null)

@@ -31,3 +31,14 @@ C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.AspNetCore.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Formatting.Compact.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Sinks.Console.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Serilog.Sinks.File.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\appsettings.Production.json

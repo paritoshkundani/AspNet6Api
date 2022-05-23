@@ -1,8 +1,32 @@
+using CityInfo.API;
+using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Serilog;
+
+// Serilog setup (Log and LoggerConfiguration both are from Serilog) afterward will tell .net to use it
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day)    // create a file each day
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// logging is built into the CreateBuilder method, it's configured by default to log to
+// console/debug window/event source and is setup to look for the Logging section of
+// our default settings file, which for us is appsettings.json, for details.
+// appsettings are also based on environment, so for us its appsettings.development.json
+// Since it's built in we did not have to add it as a service, it's already done
+// for us.
+// He decided to clear all of the logging and only include the console for now
+// after setting up serilog just commented them out as serilog will do console and file logging now
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
+
+// tell .net to use Serilog
+builder.Host.UseSerilog();
 
 // here if we used builder.Services.AddMvc() instead it would work, but we would get
 // extra features which we don't need, API will just return JSON, no need for other types
@@ -21,6 +45,14 @@ builder.Services.AddSwaggerGen();
 
 // helps us figure out the content type of a file
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+
+#if DEBUG
+builder.Services.AddTransient<IMailService, LocalMailService>();
+#else
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
+
+builder.Services.AddSingleton<CitiesDataStore>();
 
 var app = builder.Build();
 

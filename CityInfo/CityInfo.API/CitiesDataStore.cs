@@ -6,8 +6,8 @@ namespace CityInfo.API
     {
         public List<CityDto> Cities { get; set; }
 
-        // singleton pattern
-        public static CitiesDataStore Current { get; } = new CitiesDataStore();
+        // singleton pattern (later we commented this out and moved it to AddSingleton in Program.cs
+       // public static CitiesDataStore Current { get; } = new CitiesDataStore();
 
         public CitiesDataStore()
         {
