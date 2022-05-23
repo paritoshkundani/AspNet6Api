@@ -29,7 +29,7 @@ namespace CityInfo.API.DbContexts
         }
 
         // use this to customize the entities setup if we dont like how it was done via migration
-        // also use to seed data
+        // also use to seed data (data will persist, will not reset when app is restarted)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // seeding data
