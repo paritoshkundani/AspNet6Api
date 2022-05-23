@@ -1,6 +1,8 @@
 using CityInfo.API;
+using CityInfo.API.DbContexts;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 // Serilog setup (Log and LoggerConfiguration both are from Serilog) afterward will tell .net to use it
@@ -53,6 +55,17 @@ builder.Services.AddTransient<IMailService, CloudMailService>();
 #endif
 
 builder.Services.AddSingleton<CitiesDataStore>();
+
+// AddDbContext will register with Scoped Lifetime
+// using SqlLite, this will make a file called CityInfo.db on the root of the application
+// for production settings, using system level environment variable, we name it same "ConnectionStrings:CityInfoDBConnectionString"
+// environment variable for us is not a real url, just something he used to show it pulling from there when in production
+// NOTE: environment variable will always override anything in any appsettings, even Development, so you can't have one system
+// where it will from appsettings for DEV and same machine environment variable for PROD, as it will always trump others
+// so we removed it from environment afterwards to allow appsettings to be used.
+// NOTE: in order for VS to pick up the newly added environment variable, VS will need to be restarted.  Same when removing it
+builder.Services.AddDbContext<CityInfoContext>(
+    dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]));
 
 var app = builder.Build();
 
