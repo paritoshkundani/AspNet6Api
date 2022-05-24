@@ -2,6 +2,7 @@
 using CityInfo.API.Models;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CityInfo.API.Controllers
 {
@@ -24,20 +25,34 @@ namespace CityInfo.API.Controllers
     {
         private readonly ICityInfoRepository _cityInfoRepository;
         private readonly IMapper _mapper;
+        const int maxCitiesPageSize = 20;   // to prevent the user from passing in 1000 in url for GetCities call as pageSize
 
-        // IMapper from automapper, we already registered AutoMapper in Program, dont have to do IMapper separately in Program.cs
+        // IMapper from automapper, we already registered AutoMapper in Program, don't have to do IMapper separately in Program.cs
         public CitiesController(ICityInfoRepository cityInfoRepository, IMapper mapper)
         {
             _cityInfoRepository = cityInfoRepository ?? throw new ArgumentNullException(nameof(cityInfoRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        // .net will know name is from querystring, but we could have also added FromQuery for readability.
+        // if it's name differently in url from param name then use Name property like [FromQuery(Name = "filteronname")]string? name
+        // will map query string "filteronname" to method parameter "name"
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDto>>> GetCities()
+        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInterestDto>>> GetCities(string? name, string? searchQuery, 
+            int pageNumber = 1, int pageSize = 10)
         {
-            var cityEntities = await _cityInfoRepository.GetCitiesAsync();
+            // if user passes larger then 20, force it to 20 to prevent performance issues user may cause by playing with url
+            if (pageSize > maxCitiesPageSize)
+            {
+                pageSize = maxCitiesPageSize;
+            }
 
-            var results = new List<CityWithoutPointsOfInterestDto>();
+            // getting a Tuple (list of cities and a metadata object)
+            var (cityEntities, paginationMetaData) = await _cityInfoRepository.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
+
+            // add pagination metadata to header of response
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(paginationMetaData));
             
             return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDto>>(cityEntities));
         }
