@@ -69,3 +69,11 @@ C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\runtimes\w
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\AutoMapper.dll
 C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\temp\pluralsight\aspnet6api\CityInfo\CityInfo.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

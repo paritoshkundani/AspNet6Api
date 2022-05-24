@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CityInfo.API.Models;
 using CityInfo.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointsofinterest")]
     [ApiController]
+    [Authorize(Policy = "MustBeFromAntwerp")]
     public class PointsOfInterestController : ControllerBase
     {
         private readonly ILogger<PointsOfInterestController> _logger;
@@ -34,8 +36,18 @@ namespace CityInfo.API.Controllers
         {
             try
             {
-               // to see logging of exception, undo the below ([FTL] tag in Serilog file/console)
-               // throw new Exception("Exception sample");
+                // to see logging of exception, undo the below ([FTL] tag in Serilog file/console)
+                // throw new Exception("Exception sample");
+
+                // User comes in automatically because of ControllerBase
+                var cityClaim = User.Claims.FirstOrDefault(c => c.Type == "city")?.Value;
+
+                // he added a test for trying out claims, the user logged in has to have access to the city
+                // his account only has access to Antwerp
+                if (!await _cityInfoRepository.CityNameMatchesCityId(cityClaim, cityId))
+                {
+                    return Forbid();    // 403 status code, authenticated but does not have access
+                }
 
                 if (!await _cityInfoRepository.CityExistsAsync(cityId))
                 {

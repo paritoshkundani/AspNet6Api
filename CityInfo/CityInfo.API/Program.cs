@@ -3,7 +3,9 @@ using CityInfo.API.DbContexts;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Text;
 
 // Serilog setup (Log and LoggerConfiguration both are from Serilog) afterward will tell .net to use it
 Log.Logger = new LoggerConfiguration()
@@ -72,6 +74,32 @@ builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 // register AutoMapper - telling it to scan the current assembly for profiles (profile is a nice way to organize automapper mappings)
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// add authentication (default challenge to bearer and then configure it 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+            ValidAudience = builder.Configuration["Authentication:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+        };
+    });
+
+// adding a policy, only people who live in Antwerp can access
+// policy is made up of a set of requirements, when all are met it's true
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeFromAntwerp", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("city", "Antwerp");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -84,6 +112,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+// add authentication check to the pipeline
+app.UseAuthentication();
 
 app.UseAuthorization();
 
